@@ -9,7 +9,7 @@ export function PostCreate() {
       title,
     });
 
-    setTitle(""); 
+    setTitle("");
   };
 
   const [title, setTitle] = useState("");
