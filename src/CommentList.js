@@ -4,19 +4,20 @@ import axios from "axios";
 export function CommentList(props) {
   const [comments, setComments] = useState([]);
 
-  const fetchData = async () => {
-    const res = await axios.get(
-      `http://localhost:4001/posts/${props.postId}/comments`
-    );
-    setComments(res.data);
-  };
-
   useEffect(() => {
-    fetchData();
+    setComments(props.comments);
   }, []);
 
   const renderedComments = comments.map((comment) => {
-    return <li key={comment.id}>{comment.content}</li>;
+    let content =
+      comment.status === "approved"
+        ? comment.content
+        : comment.status === "rejected"
+        ? "This comment has been rejected"
+        : "This comment is awaiting moderation";
+
+    return <li key={comment.id}>{content}</li>;
   });
+
   return <ul>{renderedComments}</ul>;
 }
